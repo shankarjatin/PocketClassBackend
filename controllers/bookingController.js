@@ -14,11 +14,13 @@ exports.createBooking = async (req, res) => {
 };
 
 exports.getConfirmedBookings = async (req, res) => {
-  const { instructorId } = req.params;
-  try {
-    const confirmedBookings = await Booking.getConfirmedBookings(instructorId);
-    res.status(200).json(confirmedBookings);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to retrieve bookings.' });
-  }
-};
+    const { instructorId }= req.params;  // Correctly accessing userId from req.user
+    try {
+      const confirmedBookings = await Booking.getConfirmedBookings(instructorId);
+      res.status(200).json(confirmedBookings);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: 'Failed to retrieve bookings.' });
+    }
+  };
+  
