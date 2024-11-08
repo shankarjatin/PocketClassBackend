@@ -1,11 +1,14 @@
 const Booking = require('../models/bookingModel');
 
 exports.createBooking = async (req, res) => {
-  const { studentId, instructorId, startTime, endTime } = req.body;
+  const { startTime, endTime } = req.body;
+  const { instructorId } = req.params;
+  const studentId = req.user.userId;
   try {
     const bookingId = await Booking.createBooking(studentId, instructorId, startTime, endTime);
     res.status(201).json({ bookingId });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Failed to create booking.' });
   }
 };
